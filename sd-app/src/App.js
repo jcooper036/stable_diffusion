@@ -1,11 +1,16 @@
 import { ChakraProvider, Container, Input, Heading, Wrap, Button, Image, Text, Link, Stack, SkeletonCircle, SkeletonText } from "@chakra-ui/react"
 import axios from "axios"
 import { useState } from "react"
+import { saveAs } from 'file-saver'
 
 function App() {
   const [image, updateImage] = useState()
   const [prompt, updatePrompt] = useState()
   const [loading, updateLoading] = useState()
+
+  const downloadImage = () => {
+    saveAs(`data:image/png;base64,${image}`, prompt)
+  }
 
   const generate = async prompt => {
     updateLoading(true)
@@ -21,13 +26,17 @@ function App() {
         <Wrap>
           <Input value={prompt} onChange={e => updatePrompt(e.target.value)} width={"350px"}></Input>
           <Button onClick={e => generate(prompt)} colorScheme={"yellow"}> Generate</Button>
+
         </Wrap>
         {loading ?
           <Stack>
             <SkeletonCircle />
             <SkeletonText />
           </Stack> :
-          image ? <Image src={`data:image/png;base64,${image}`} boxShadow="lg" /> : null}
+          image ? <Image src={`data:image/png;base64,${image}`} boxShadow="lg" alt={prompt} /> : null}
+        <Wrap>
+          <Button onClick={e => downloadImage()}>Download!</Button>
+        </Wrap>
       </Container>
     </ChakraProvider>
   );
