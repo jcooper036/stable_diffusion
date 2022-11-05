@@ -1,0 +1,12 @@
+# to get cuda enabled torch
+--extra-index-url https://download.pytorch.org/whl/cu117
+
+diffusers[torch]
+fastapi
+huggingface_hub
+scipy
+torch
+torchvision
+torchaudio
+transformers
+uvicorn
