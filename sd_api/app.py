@@ -31,6 +31,7 @@ pipe.to(device)
 
 @app.get("/")
 def generate(prompt: str):
+    print(prompt)
     with autocast(device):
         image = pipe(prompt, guidance_scale=8.5).images[0]
 
