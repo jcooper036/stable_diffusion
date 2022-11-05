@@ -1,20 +1,12 @@
 # stable_diffusion
-Some code practice for stable diffusion and react. Mostly because some guy
-on youtube put up a video about FastAPI and react. I've used FastAPI before
-and thought it would be cool to get another perspective. I've been wanting to
-try react and though this was a good place to jump in.
-
-
-From this tutorial:
-https://www.youtube.com/watch?v=3l16wCsDglU
+Some code practice for stable diffusion and react. Mostly because some guy on youtube put up a [video about FastAPI and react](https://www.youtube.com/watch?v=3l16wCsDglU). I've used FastAPI before and thought it would be cool to get another perspective. I've been wanting to try react and though this was a good place to jump in.
 
 # Python API
-Build using FastAPI
+Build using [FastAPI](https://fastapi.tiangolo.com/)
 
 ## deploy
 ### get an auth token from huggingface for the model
-The model comes from Hugging Face, and you'll need an [api tokem](https://huggingface.co/docs/hub/security-tokens)
-to download it. Set the token as an env variable called `HUGGINGFACE_AUTH_TOKEN`
+The model comes from Hugging Face, and you'll need an [api tokem](https://huggingface.co/docs/hub/security-tokens) to download it. Set the token as an env variable called `HUGGINGFACE_AUTH_TOKEN`
 ```bash
 echo auth_token="$API_TOKEN" > sd_api/auth_token.py
 ```
@@ -22,8 +14,36 @@ echo auth_token="$API_TOKEN" > sd_api/auth_token.py
 ```bash
 python -m uvicorn sd_api.app:app
 ```
-The first time running this it will need to download the model, which takes few 
-minutes. Following that, the docs page can be found at http://127.0.0.1:8000/docs.
+The first time running this it will need to download the model, which takes few minutes. Following that, the docs page can be found at http://127.0.0.1:8000/docs.
+
+
+# React App
+## Install npm
+Broadly, I had to install node.js for windows, then install [nvm for windows[(https://github.com/coreybutler/nvm-windows)]. After that, I was able to create a new react project with 
+```bash
+npx create-react-app sd-app
+cd my-app
+npm start
+```
+I'll adimit that being new to this I don't really understand dependency management for js, and it looks like there would probably be a way to build the npm env using the `package-lock.json` or the `package.json` (the packages that I installed are listed in there at least). I think the only two that I installed for this were `axios` and `chakra-ui`. 
+
+The `create-react-app` function builds more than you need, but that's fine. I think I left the App.css in because it looks neat and it's fun to play around with, but it and the logo obviosly aren't needed.
+
+## Developing
+Developing turns out to be super simple. Just run `npm start` (as seen above) 
+
+# Notes
+This was much more about eviornment construction than anything, it was 95% of the work. This is quite easy to get going if the enviornment is set up.
+
+## CUDA doesn't really work on WSL
+After a lot of reading and trouble shooting, it seems like the consensus is "it's complicated" and "you might have done something a long time ago that, short of a system wipe and reboot, will be tought to get around". I had a much easier time getting it to work out of the Windows enviornment, but in turn that meant setting up my dev enviornment in Windows (where previously I had relied on WSL)
+
+### Window dev env
+While it is way better than it used to be, there are some quirks.
+- never take for granted that something exists, be ready to be flexible and look for a windows specific implimentation or change tactics entirely
+- no python sub functions work for me unless I do `python -m` first (`pip`, `uvivorn`, etc) within the virtual enviornment. This is a known thing apparently.
+- Somewhere there are zombie paths that try to run python that can't. I didn't fix them but they haven't blocked anything yet.
+- `virtualenv` doesn't work, you have to use `venv`
 
 
 ## SIGTERM vs SIGKILL
@@ -31,5 +51,4 @@ If there is an error about this beacuse Windows, replace
 ```python
 signal=signal.SIGKILL ->> signal=signal.SIGTERM 
 ```
-at the path in the virtualenv. This is awful cause it changes the source code, 
-but it's the solution that I've been able to work out so far.
+at the path in the virtualenv. This is awful cause it changes the source code, but it's the solution that I've been able to work out so far.
