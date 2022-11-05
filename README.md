@@ -1,8 +1,13 @@
-# stable_diffusion
-Some code practice for stable diffusion and react. Mostly because some guy on youtube put up a [video about FastAPI and react](https://www.youtube.com/watch?v=3l16wCsDglU). I've used FastAPI before and thought it would be cool to get another perspective. I've been wanting to try react and though this was a good place to jump in.
+# Stable Diffusion FastAPI and React app
+This repo is some code practice that follows a tutorial for building a python FastAPI backend to serve Stable Diffusion models to a React frontend. I did this because YouTube recommended a [video version of this tutorial](https://www.youtube.com/watch?v=3l16wCsDglU), and I have some experience with FastAPI plus I've been wanting to learn React. This turns out to be a good jumping point for learning both, since the video is laser focused on building an MVP but uses some cool features of both frameworks to do so.
+
+Some of the real challenge is the enviornment set up, which the video doesn't go into at all. This turned out to be more of a test of enviroment construction than anything else. But what else is there to programing really 🤷?
 
 # Python API
 Build using [FastAPI](https://fastapi.tiangolo.com/)
+
+## CUDA
+You'll need to be able to install and use the pytorch cuda implimentation. Make sure that you build pytorch for the cuda source (the requirements file should have the index).
 
 ## deploy
 ### get an auth token from huggingface for the model
